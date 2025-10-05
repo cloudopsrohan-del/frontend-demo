@@ -40,7 +40,7 @@ function App() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Learn Docker
+            Learn Docker and Kubernetes
           </a>
         </div>
       </header>
