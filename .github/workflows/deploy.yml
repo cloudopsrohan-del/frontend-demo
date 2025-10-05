@@ -21,7 +21,7 @@ jobs:
       - name: Install & Build Frontend
         run: |
           npm install
-          npm run build
+          npm run build  # this creates 'build/' inside the repo root
 
       - name: Upload build to EC2
         uses: appleboy/scp-action@v0.1.7
@@ -30,7 +30,7 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           source: "build/*"
-          target: "/home/ubuntu/frontend-build"
+          target: "/home/ubuntu/frontend-demo/build"  # directly into your repo folder
 
       - name: Deploy & Restart Apache
         uses: appleboy/ssh-action@v0.1.10
@@ -40,5 +40,5 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             sudo rm -rf /var/www/html/*
-            sudo cp -r /home/ubuntu/frontend-build/* /var/www/html/
+            sudo cp -r /home/ubuntu/frontend-demo/build/* /var/www/html/
             sudo systemctl restart apache2
